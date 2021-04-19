@@ -4,7 +4,7 @@ function init() {
     d3.json("../samples.json").then(function(sampleData) {
         
         var names = [sampleData].map(data => data.names);
-        var metadata = [sampleData].map(data => data.metadata);
+        var metadata = [sampleData].map(data => data.metadata)[0];
         var samples = [sampleData].map(data => data.samples);
 
         var otuID = samples[0][0].otu_ids.slice(0,10); // Get top 10 IDs for first sample
@@ -17,17 +17,16 @@ function init() {
             var dropdownMenu = d3.select("#selDataset"); // Select the dropdown menu ID 
             dropdownMenu.append("option").text(id).property("value"); // Add each name to the dropdown options
             });
-        
+
         var defaultID = samples[0][0].id;
         getData(defaultID);
+        getMetadata(defaultID);
+
     })};
 
 
-
-        
-        // Plotly.newPlot("bar", data, layout);
-
 init();
+
 
 function getData(filterID) {
 
@@ -45,7 +44,7 @@ function getData(filterID) {
         var sampleValues = filterData.sample_values.slice(0,10);
         var otuID = filterData.otu_ids.slice(0,10);
         var idLabels = otuID.map(otuID => {return "OTU #" + otuID}) 
-        
+
         // Build chart 
         data = [{
             x: sampleValues,
@@ -65,6 +64,29 @@ function getData(filterID) {
     })
 };
 
+function getMetadata(filterID) {
+    d3.json("../samples.json").then(function(sampleData) {
+        
+        // var names = [sampleData].map(data => data.names);
+        var metadata = [sampleData].map(data => data.metadata)[0];
+        // var samples = [sampleData].map(data => data.samples);
+
+        var metadataPanel = d3.select("#sample-metadata")
+        
+        var filteredMetadata = metadata.filter(item => item.id == filterID)[0];
+        var ethnicity = filteredMetadata.ethnicity;
+        var gender = filteredMetadata.gender;
+        var age = filteredMetadata.age;
+        var location = filteredMetadata.location;
+        var bbtype = filteredMetadata.bbtype;
+        var wfreq = filteredMetadata.wfreq;
+
+
+
+
+})};
+
 function optionChanged(filterID) {
     getData(filterID);
+    getMetadata(filterID);
 }
