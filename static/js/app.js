@@ -23,24 +23,8 @@ function init() {
     })};
 
 
+
         
-
-        // // Compile data values
-        // var data = [{
-        //     x: sampleValues,
-        //     y: xLabel, 
-        //     text: otuLabels,
-        //     type: 'bar',
-        //     orientation: 'h'
-        // }];
-
-        // // Format chart 
-        // var layout = {
-        //     title: "Top 10 OTUs in Subject 940",
-        //     xaxis: {title: "Sample Values"},
-        //     yaxis: {title: "OTU ID"}
-        // };
-    
         // Plotly.newPlot("bar", data, layout);
 
 init();
@@ -70,8 +54,14 @@ function getData(filterID) {
             type: 'bar', 
             orientation: 'h'
         }]
+        // Format chart 
+        var layout = {
+            title: "Top 10 OTUs in Subject " + filterID,
+            xaxis: {title: "Sample Values"},
+            yaxis: {title: "OTU ID"}
+        };
 
-        Plotly.newPlot("bar", data);
+        Plotly.newPlot("bar", data, layout);
     })
 };
 
