@@ -33,16 +33,16 @@ function getData(filterID) {
         // Get filtered data values 
         var filterData = samples[0].filter(item => item.id == filterID)[0];
         var sampleID = filterData.id;
-        var otuLabels = filterData.otu_labels.slice(0,10);
-        var sampleValues = filterData.sample_values.slice(0,10);
-        var otuID = filterData.otu_ids.slice(0,10);
+        var otuLabels = filterData.otu_labels;
+        var sampleValues = filterData.sample_values;
+        var otuID = filterData.otu_ids;
         var idLabels = otuID.map(otuID => {return "OTU #" + otuID}) 
 
-        // Build chart 
+        // Build bar chart  
         data = [{
-            x: sampleValues,
-            y: idLabels,
-            text: otuLabels,
+            x: sampleValues.slice(0,10),
+            y: idLabels.slice(0,10),
+            text: otuLabels.slice(0,10),
             type: 'bar', 
             orientation: 'h'
         }]
@@ -54,6 +54,25 @@ function getData(filterID) {
         };
 
         Plotly.newPlot("bar", data, layout);
+
+        // Build bubble plot 
+        bubbleData = [{
+            x: otuID,
+            y: sampleValues,
+            text: idLabels,
+            mode: 'markers',
+            type: 'scatter',
+            marker: {
+                color: otuID,
+                size: sampleValues
+            }
+        }]
+        
+        bubbleLayout = {
+            title: "bubble"
+        }
+        
+        Plotly.newPlot("bubble", bubbleData, bubbleLayout);
     })
 };
 
@@ -76,8 +95,7 @@ function getMetadata(filterID) {
     });
 };
 
-    
-
+// Updates when dropdown is changed 
 function optionChanged(filterID) {
     getData(filterID);
     getMetadata(filterID);
