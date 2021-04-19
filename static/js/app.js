@@ -65,17 +65,9 @@ function getMetadata(filterID) {
     // Get metadata 
     d3.json("../samples.json").then(function(sampleData) {
         
-        // var names = [sampleData].map(data => data.names);
+        // Filter by ID 
         var metadata = [sampleData].map(data => data.metadata)[0];
-        // var samples = [sampleData].map(data => data.samples);
-
         var filteredMetadata = metadata.filter(item => item.id == filterID)[0];
-        var ethnicity = filteredMetadata.ethnicity;
-        var gender = filteredMetadata.gender;
-        var age = filteredMetadata.age;
-        var location = filteredMetadata.location;
-        var bbtype = filteredMetadata.bbtype;
-        var wfreq = filteredMetadata.wfreq;
         
         // Add data to panel 
         Object.entries(filteredMetadata).forEach(([key, value]) => {
