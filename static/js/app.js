@@ -3,14 +3,8 @@ function init() {
     
     d3.json("../samples.json").then(function(sampleData) {
         
+        // Get ids 
         var names = [sampleData].map(data => data.names);
-        var metadata = [sampleData].map(data => data.metadata)[0];
-        var samples = [sampleData].map(data => data.samples);
-
-        var otuID = samples[0][0].otu_ids.slice(0,10); // Get top 10 IDs for first sample
-        var xLabel = otuID.map(id => {return "OTU #" + id}); // Converts ID to string and adds "OTU"
-        var sampleValues = samples[0][0].sample_values.slice(0,10); // Get top 10 sample values 
-        var otuLabels = samples[0][0].otu_labels;
 
         // Create dropdown options  
         names[0].forEach(function(id) {
@@ -18,12 +12,11 @@ function init() {
             dropdownMenu.append("option").text(id).property("value"); // Add each name to the dropdown options
             });
 
-        var defaultID = samples[0][0].id;
+        // Create default chart 
+        var defaultID = names[0][0];
         getData(defaultID);
         getMetadata(defaultID);
-
     })};
-
 
 init();
 
@@ -65,14 +58,17 @@ function getData(filterID) {
 };
 
 function getMetadata(filterID) {
+
+    var metadataPanel = d3.select("#sample-metadata"); // Select panel 
+    metadataPanel.text(""); // Clear current panel 
+
+    // Get metadata 
     d3.json("../samples.json").then(function(sampleData) {
         
         // var names = [sampleData].map(data => data.names);
         var metadata = [sampleData].map(data => data.metadata)[0];
         // var samples = [sampleData].map(data => data.samples);
 
-        var metadataPanel = d3.select("#sample-metadata")
-        
         var filteredMetadata = metadata.filter(item => item.id == filterID)[0];
         var ethnicity = filteredMetadata.ethnicity;
         var gender = filteredMetadata.gender;
@@ -80,11 +76,15 @@ function getMetadata(filterID) {
         var location = filteredMetadata.location;
         var bbtype = filteredMetadata.bbtype;
         var wfreq = filteredMetadata.wfreq;
+        
+        // Add data to panel 
+        Object.entries(filteredMetadata).forEach(([key, value]) => {
+            metadataPanel.append("h4").text(`${key}: ${value}`);
+          });
+    });
+};
 
-
-
-
-})};
+    
 
 function optionChanged(filterID) {
     getData(filterID);
