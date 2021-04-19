@@ -44,7 +44,10 @@ function getData(filterID) {
             y: idLabels.slice(0,10),
             text: otuLabels.slice(0,10),
             type: 'bar', 
-            orientation: 'h'
+            orientation: 'h',
+            marker: {
+                color: 'rgb(255, 65, 54)',
+                opacity: 0.6}
         }]
         // Format chart 
         var layout = {
@@ -64,12 +67,15 @@ function getData(filterID) {
             type: 'scatter',
             marker: {
                 color: otuID,
-                size: sampleValues
+                size: sampleValues,
+                opacity: 0.6
             }
         }]
         
         bubbleLayout = {
-            title: "bubble"
+            title: "OTU Sample Values",
+            xaxis: {title: 'OTU ID'},
+            yaxis: {title: 'Value'}
         }
         
         Plotly.newPlot("bubble", bubbleData, bubbleLayout);
@@ -90,7 +96,7 @@ function getMetadata(filterID) {
         
         // Add data to panel 
         Object.entries(filteredMetadata).forEach(([key, value]) => {
-            metadataPanel.append("h4").text(`${key}: ${value}`);
+            metadataPanel.append("h6").text(`${key}: ${value}`);
           });
     });
 };
