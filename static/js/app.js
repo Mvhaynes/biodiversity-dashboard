@@ -1,7 +1,7 @@
 // Default chart
 function init() {
     
-    d3.json("../../samples.json").then(function(sampleData) {
+    d3.json("data/samples.json").then(function(sampleData) {
         
         // Get ids 
         var names = [sampleData].map(data => data.names);
@@ -23,7 +23,7 @@ init();
 
 function getData(filterID) {
 
-    d3.json("../samples.json").then((sampleData) => {
+    d3.json("data/samples.json").then((sampleData) => {
         
         // Get sample data
         var samples = [sampleData].map(data => data.samples);
@@ -87,7 +87,7 @@ function getMetadata(filterID) {
     metadataPanel.text(""); // Clear current panel 
 
     // Get metadata 
-    d3.json("../samples.json").then(function(sampleData) {
+    d3.json("data/samples.json").then(function(sampleData) {
         
         // Filter by ID 
         var metadata = [sampleData].map(data => data.metadata)[0];
