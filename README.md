@@ -11,4 +11,5 @@ D3 allows the site to automatically populate the charts based on the selected dr
 * Javascript, D3, Plotly 
 
 ## data 
-[Sample data](https://github.com/Mvhaynes/biodiversity-dashboard/blob/main/data/samples.json)
+[Sample data](https://github.com/Mvhaynes/biodiversity-dashboard/blob/main/data/samples.json) obtained from
+Hulcr, J. et al.(2012) A Jungle in There: Bacteria in Belly Buttons are Highly Diverse http://robdunnlab.com/projects/belly-button-biodiversity/results-and-data/
