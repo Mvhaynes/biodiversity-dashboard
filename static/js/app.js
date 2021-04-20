@@ -104,19 +104,21 @@ function getMetadata(filterID) {
                   y: [0, 1] },
               value: filteredMetadata.wfreq,
               title: { 
-                  text: "Washing Frequency" },
+                  text: "Washing Frequency (/week)" },
               type: "indicator",
               mode: "gauge+number",
               gauge: {
                 axis: { 
-                    range: [0, 10]},
+                    range: [0, 7]},
                 bar: { color: "white" },
                 steps: [
-                  { range: [0, 2], color: "red"},
-                  { range: [2, 4], color: "orange"},
-                  { range: [4, 6], color: "yellow"},
-                  { range: [6, 8], color: "lightgreen"},
-                  { range: [8, 10], color: "green"}]
+                  { range: [0, 1], color: "red"},
+                  { range: [1, 2], color: "rgb(255, 102, 102)"},
+                  { range: [2, 3], color: "rgb(255, 153, 51)"},
+                  { range: [3, 4], color: "rgb(255, 178, 102)"},
+                  { range: [4, 5], color: "rgb(255, 255, 51)"},
+                  { range: [5, 6], color: "rgb(102, 204, 0)"},
+                  { range: [6, 7], color: "green"}]
               }}];
         
           Plotly.newPlot('gauge', data);
