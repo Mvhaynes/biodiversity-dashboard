@@ -1,7 +1,7 @@
 // Default chart
 function init() {
     
-    d3.json("../samples.json").then(function(sampleData) {
+    d3.json("../../samples.json").then(function(sampleData) {
         
         // Get ids 
         var names = [sampleData].map(data => data.names);
