@@ -11,4 +11,4 @@ D3 allows the site to automatically populate the charts based on the selected dr
 * Javascript, D3, Plotly 
 
 ## data 
-[Sample data](data/sample.json)
+[Sample data](https://github.com/Mvhaynes/biodiversity-dashboard/blob/main/data/samples.json)
