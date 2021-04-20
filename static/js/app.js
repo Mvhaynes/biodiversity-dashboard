@@ -18,9 +18,7 @@ function init() {
         getMetadata(defaultID);
     })};
 
-init();
-
-
+// Get data based on filter ID from dropdown menu 
 function getData(filterID) {
 
     d3.json("data/samples.json").then((sampleData) => {
@@ -110,23 +108,18 @@ function getMetadata(filterID) {
               type: "indicator",
               mode: "gauge+number",
               gauge: {
-                axis: { range: [0, 10] },
+                axis: { 
+                    range: [0, 10]},
+                bar: { color: "white" },
                 steps: [
-                  { range: [0, 1], color: "yellow"},
-                  { range: [1, 2], color: "yellow"},
-                  { range: [2, 3], color: "yellow"},
-                  { range: [3, 4], color: "yellow"},
-                  { range: [4, 5], color: "yellow"},
-                  { range: [5, 6], color: "yellow"},
-                  { range: [6, 7], color: "yellow"},
-                  { range: [7, 8], color: "yellow"},
-                  { range: [8, 9], color: "yellow"},
-                  { range: [9, 10], color: "yellow"}]
+                  { range: [0, 2], color: "red"},
+                  { range: [2, 4], color: "orange"},
+                  { range: [4, 6], color: "yellow"},
+                  { range: [6, 8], color: "lightgreen"},
+                  { range: [8, 10], color: "green"}]
               }}];
-     
-            var layout = {title: "Washing Frequency"};
         
-          Plotly.newPlot('gauge', data, layout);
+          Plotly.newPlot('gauge', data);
 
     });
 };
@@ -136,3 +129,5 @@ function optionChanged(filterID) {
     getData(filterID);
     getMetadata(filterID);
 }
+
+init();
