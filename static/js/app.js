@@ -25,18 +25,17 @@ function getData(filterID) {
 
     d3.json("../samples.json").then((sampleData) => {
         
-        // Access data and assign to variables 
-        var names = [sampleData].map(data => data.names);
-        var metadata = [sampleData].map(data => data.metadata);
+        // Get sample data
         var samples = [sampleData].map(data => data.samples);
        
         // Get filtered data values 
         var filterData = samples[0].filter(item => item.id == filterID)[0];
-        var sampleID = filterData.id;
         var otuLabels = filterData.otu_labels;
         var sampleValues = filterData.sample_values;
         var otuID = filterData.otu_ids;
-        var idLabels = otuID.map(otuID => {return "OTU #" + otuID}) 
+        var idLabels = otuID.map(otuID => {
+            return "OTU #" + otuID
+        }); 
 
         // Build bar chart  
         data = [{
@@ -49,11 +48,11 @@ function getData(filterID) {
                 color: 'rgb(255, 65, 54)',
                 opacity: 0.6}
         }]
+
         // Format chart 
         var layout = {
             title: "Top 10 OTUs in Subject " + filterID,
-            xaxis: {title: "Sample Values"},
-            yaxis: {title: "OTU ID"}
+            xaxis: {title: "Sample Values"}
         };
 
         Plotly.newPlot("bar", data, layout);
@@ -71,7 +70,8 @@ function getData(filterID) {
                 opacity: 0.6
             }
         }]
-        
+
+        // Format bubble plot
         bubbleLayout = {
             title: "OTU Sample Values",
             xaxis: {title: 'OTU ID'},
@@ -83,7 +83,6 @@ function getData(filterID) {
 };
 
 function getMetadata(filterID) {
-
     var metadataPanel = d3.select("#sample-metadata"); // Select panel 
     metadataPanel.text(""); // Clear current panel 
 
@@ -98,6 +97,37 @@ function getMetadata(filterID) {
         Object.entries(filteredMetadata).forEach(([key, value]) => {
             metadataPanel.append("h6").text(`${key}: ${value}`);
           });
+
+        // Plot metadata 
+        var data = [
+            {
+              domain: { 
+                  x: [0, 1], 
+                  y: [0, 1] },
+              value: filteredMetadata.wfreq,
+              title: { 
+                  text: "Washing Frequency" },
+              type: "indicator",
+              mode: "gauge+number",
+              gauge: {
+                axis: { range: [0, 10] },
+                steps: [
+                  { range: [0, 1], color: "yellow"},
+                  { range: [1, 2], color: "yellow"},
+                  { range: [2, 3], color: "yellow"},
+                  { range: [3, 4], color: "yellow"},
+                  { range: [4, 5], color: "yellow"},
+                  { range: [5, 6], color: "yellow"},
+                  { range: [6, 7], color: "yellow"},
+                  { range: [7, 8], color: "yellow"},
+                  { range: [8, 9], color: "yellow"},
+                  { range: [9, 10], color: "yellow"}]
+              }}];
+     
+            var layout = {title: "Washing Frequency"};
+        
+          Plotly.newPlot('gauge', data, layout);
+
     });
 };
 
